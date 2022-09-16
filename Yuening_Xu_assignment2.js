@@ -69,6 +69,23 @@ const string =
 const expectedReturnString =
   "perhaps the easiest to understand case for reduce is to return the sum of all the elements in an array";
 
+const formatString = (sValue) => {
+  const ret = sValue
+    .trim()
+    .toLowerCase()
+    .replaceAll(/[^a-z]/g, " ")
+    .replaceAll(/\s+/g, " ");
+
+  return ret;
+};
+
+console.log("\n");
+const resultS = formatString(string);
+console.log(resultS);
+console.log(
+  "if result equals Expected Return String?  ",
+  resultS === expectedReturnString
+);
 /*
 
 Question 3
