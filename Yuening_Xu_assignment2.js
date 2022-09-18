@@ -115,3 +115,41 @@ const expectedReturnArray = [
   { uuid: 5, role: null, name: "test5" },
   { uuid: 6, role: "pm", name: null },
 ];
+
+const combineUuid = (first, second) => {
+  const ret = new Array();
+  second.forEach((item) => ret.push(Object.assign(item, { name: null })));
+  first.forEach((item) => {
+    let same = ret.find((retItem) => retItem.uuid === item.uuid);
+    if (same === undefined) {
+      ret.push(
+        Object.assign({ uuid: item.uuid }, { role: null }, { name: item.name })
+      );
+    } else {
+      same.name = item.name;
+    }
+  });
+  ret.sort((a, b) => (a.uuid > b.uuid ? 1 : -1));
+  return ret;
+};
+
+/***
+ * use this function to compare 2 arrays
+ * input: array
+ * output: the different part between 2 arrays
+ 
+function getDifference(array1, array2) {
+  return array1.filter((object1) => {
+    return !array2.some((object2) => {
+      return (
+        object1.uuid === object2.uuid &&
+        object1.role === object2.role &&
+        object1.name === object2.name
+      );
+    });
+  });
+}
+*/
+const q3ret = combineUuid(first, second);
+//console.log(getDifference(q3ret, expectedReturnArray));
+console.log("\n", q3ret);
