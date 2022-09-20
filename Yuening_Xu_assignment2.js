@@ -14,49 +14,60 @@ const itemsObject = [
   { quantity: 5, price: 400 },
 ];
 
-const doubleQuantity = (items) => {
-  let ret = new Array();
-  items.forEach((object) => {
-    let obj = { quantity: object.quantity * 2, price: object.price * 2 };
-    ret.push(obj);
-  });
-  return ret;
-};
+// const doubleQuantity = (items) => {
+//   let ret = new Array();
+//   items.forEach((object) => {
+//     let obj = { quantity: object.quantity * 2, price: object.price * 2 };
+//     ret.push(obj);
+//   });
+//   return ret;
+// };
 
-const doubleobject = doubleQuantity(itemsObject);
-doubleobject.forEach((value) => {
-  console.log(value);
+// const doubleobject = doubleQuantity(itemsObject);
+// doubleobject.forEach((value) => {
+//   console.log(value);
+// });
+
+/***use map */
+const doublemap = itemsObject.map(({ quantity, price }) => {
+  return { quantity: quantity * 2, price: price * 2 };
 });
+console.log(doublemap);
 
-console.log("\n");
+// const largerThan = (items) => {
+//   let ret = new Array();
+//   items.forEach((object) => {
+//     if (object.quantity > 2 && object.price > 300) {
+//       let obj = { quantity: object.quantity, price: object.price };
+//       ret.push(obj);
+//     }
+//   });
+//   return ret;
+// };
 
-const largerThan = (items) => {
-  let ret = new Array();
-  items.forEach((object) => {
-    if (object.quantity > 2 && object.price > 300) {
-      let obj = { quantity: object.quantity, price: object.price };
-      ret.push(obj);
-    }
-  });
-  return ret;
-};
-
-const largeobject = largerThan(itemsObject);
-largeobject.forEach((value) => {
-  console.log(value);
+// const largeobject = largerThan(itemsObject);
+// largeobject.forEach((value) => {
+//   console.log(value);
+// });
+const largermap = itemsObject.filter(({ quantity, price }) => {
+  return quantity > 2 && price > 300;
 });
+console.log(largermap);
 
-console.log("\n");
-const totalValue = (items) => {
-  let ret = 0;
-  items.forEach((item) => {
-    ret += item.quantity * item.price;
-  });
-  return ret;
-};
-const sumValue = totalValue(itemsObject);
-console.log(sumValue);
-
+// console.log("\n");
+// const totalValue = (items) => {
+//   let ret = 0;
+//   items.forEach((item) => {
+//     ret += item.quantity * item.price;
+//   });
+//   return ret;
+// };
+// const sumValue = totalValue(itemsObject);
+// console.log(sumValue);
+const total = itemsObject.reduce((sum, item) => {
+  return sum + item.quantity * item.price;
+}, 0);
+console.log(total);
 /* Question 2
 
 Given the string, implement a function to remove all the non-alphabet characters and extra space in the string and convert the string to all lowercase.
@@ -118,7 +129,7 @@ const expectedReturnArray = [
 
 const combineUuid = (first, second) => {
   const ret = new Array();
-  second.forEach((item) => ret.push(Object.assign(item, { name: null })));
+  second.forEach((item) => ret.push({ ...item, name: null }));
   first.forEach((item) => {
     let same = ret.find((retItem) => retItem.uuid === item.uuid);
     if (same === undefined) {
